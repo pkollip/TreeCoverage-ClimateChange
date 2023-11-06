@@ -1,6 +1,10 @@
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 import os
+import numpy as np
+import matplotlib
+
+# Below is the numerical value for each state!
 
 states_mapping = {
     'Alabama': 1,
@@ -79,16 +83,11 @@ def main():
 
     X_test = test.drop('Performance (Bad/Decent/Good)', axis=1)
     X_train_np = X_train.to_numpy()
-    # print(X_train_np)
     y_train_np = y_train.to_numpy()
-    # print(y_train_np)
     X_test_np = X_test.to_numpy()
     knn = KNeighborsClassifier(n_neighbors=1)
     knn.fit(X_train_np,y_train_np)
     y_pred = knn.predict(X_test_np)
-    # print("Y_PRED")
-    # print(y_pred)
-    # print(len(y_pred))
     test_new = pd.read_csv("states_test_data - states.csv")
     test_new['Performance (Bad/Decent/Good)'] = y_pred
 
