@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 import os
 import numpy as np
-import matplotlib
+from matplotlib import pyplot as plt
 
 # Below is the numerical value for each state!
 
@@ -59,15 +59,16 @@ states_mapping = {
     'Wyoming': 50
 }
 
+
 def main():
     #train data
     train = pd.read_csv("states_training_data - states.csv")
+    og_train = train
     train = train.drop(columns='Abbreviation')
     label_mapping = {'Bad': 0, 'Decent': 1, 'Good': 2}
     train['Performance (Bad/Decent/Good)'] = train['Performance (Bad/Decent/Good)'].replace(label_mapping)
     train['State'] = train['State'].replace(states_mapping)
     train = train.replace(',','', regex=True)
-    print(train)
 
     #make X_train
     X_train = train.drop('Performance (Bad/Decent/Good)', axis=1)
@@ -93,9 +94,10 @@ def main():
 
     reverse_mapping = {0: 'Bad', 1: 'Decent', 2: 'Good'}
     test_new['Performance (Bad/Decent/Good)'] = test_new['Performance (Bad/Decent/Good)'].replace(reverse_mapping)
-    test_new.to_csv("")
-    # print(test_new)
-
+    final = test_new.append(og_train)
+    fig,ax = plt.subplots()
+    final["Performance (Bad/Decent/Good)"].value_counts().plot(ax=ax, kind='bar',xlabel='Performance (Bad/Decent/Good)',ylabel='Frequency')
+    plt.show()
 
 if __name__ == '__main__':
     main()
