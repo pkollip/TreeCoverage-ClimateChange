@@ -10,6 +10,7 @@ Climate change is arguably one of the most pressing issues this planet is facing
 # Findings
 
 We determined the performance of the states using a k-value of 1 since our current training dataset is small. The graph of how many states fall into each category can be seen below.
+
 ![alt text](https://github.com/pkollip/TreeCoverage-ClimateChange/blob/main/PerformanceOfStatesGraph.png?raw=true)
 
 
